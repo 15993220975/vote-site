@@ -1,6 +1,6 @@
 /* 配置方式：填入 Supabase 项目 URL 与 anon/publishable key。anon key 可公开，数据库权限由 RLS 控制。 */
-const SUPABASE_URL = 'YOUR_SUPABASE_URL';
-const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
+const SUPABASE_URL = 'https://nqquerpvhpowxvqkqubf.supabase.co';
+const SUPABASE_ANON_KEY = 'sb_publishable_UCaIiWNa1NQPeLoK17JBYQ_Mk_HO2Yf';
 const configured = SUPABASE_URL.startsWith('https://') && !SUPABASE_URL.includes('YOUR_') && SUPABASE_ANON_KEY && !SUPABASE_ANON_KEY.includes('YOUR_');
 const db = configured ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
 const $ = id => document.getElementById(id);
