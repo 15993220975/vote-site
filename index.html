@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#ffffff"><meta name="description" content="自定义在线投票，创建投票、分享链接、查看实时排行榜。">
+  <title>轻投票 · 自定义投票</title><link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+<header class="topbar"><a class="brand" href="#"><span class="brand-mark">✓</span> 轻投票</a><nav><a href="#polls">全部投票</a><button class="btn btn-light" id="accountBtn">登录 / 注册</button><button class="btn btn-primary hidden" id="adminNav">管理后台</button></nav></header>
+<main>
+  <section class="hero"><span class="eyebrow">MAKE YOUR VOICE COUNT</span><h1>每一票，都有意义。</h1><p>创建你自己的投票，分享给朋友，一起选出心中的人气王。</p><a class="btn btn-primary btn-lg" href="#polls">浏览投票 <span>→</span></a></section>
+  <section class="section" id="polls"><div class="section-head"><div><span class="eyebrow">COMMUNITY POLLS</span><h2>正在进行的投票</h2></div><button class="btn btn-light" id="refreshBtn">↻ 刷新</button></div><div id="pollList" class="poll-grid"><div class="empty">正在加载投票…</div></div></section>
+  <section class="section hidden" id="pollDetail"><button class="text-btn" id="backBtn">← 返回投票列表</button><div id="pollContent"></div></section>
+  <section class="section hidden" id="adminPanel"><div class="section-head"><div><span class="eyebrow">ADMINISTRATION</span><h2>投票管理</h2><p class="muted">创建、编辑或删除投票。仅管理员账号可以操作。</p></div><button class="btn btn-light" id="adminLogout">退出管理</button></div>
+    <div class="admin-layout"><form id="pollForm" class="panel"><h3 id="formHeading">创建新投票</h3><input type="hidden" id="editPollId"><label>投票标题<input id="pollTitle" maxlength="100" required placeholder="例如：谁是本周人气王？"></label><label>投票说明<textarea id="pollDescription" rows="3" maxlength="500" placeholder="介绍投票主题和规则"></textarea></label><div class="form-row"><label>开始时间（可选）<input id="pollStart" type="datetime-local"></label><label>结束时间（可选）<input id="pollEnd" type="datetime-local"></label></div><label class="checkline"><input type="checkbox" id="pollPublished" checked> 发布后允许大家查看和投票</label><div class="form-actions"><button class="btn btn-primary" type="submit">保存投票</button><button class="btn btn-light" type="button" id="cancelEdit">取消编辑</button></div><p class="hint">创建后，在下方为投票添加候选人及照片链接。</p></form>
+    <div class="panel"><h3>已有投票</h3><div id="adminPollList" class="admin-list"><div class="empty">加载中…</div></div></div></div>
+    <div class="panel candidate-panel hidden" id="candidatePanel"><h3 id="candidateHeading">管理候选人</h3><form id="candidateForm" class="candidate-form"><input type="hidden" id="candidateId"><label>候选人名称<input id="candidateName" maxlength="80" required placeholder="姓名或选项名称"></label><label>照片 URL<input id="candidatePhoto" type="url" placeholder="https://example.com/photo.jpg"></label><label>简介<input id="candidateBio" maxlength="200" placeholder="一句话介绍（可选）"></label><button class="btn btn-primary" type="submit">添加 / 保存候选人</button></form><div id="candidateList" class="admin-list"></div></div>
+  </section>
+</main>
+<footer><span>轻投票 · 简洁、公平、易分享</span><span>请尊重候选人隐私，上传照片前取得同意。</span></footer>
+<div class="modal-backdrop hidden" id="authModal"><div class="modal"><button class="modal-close" id="closeAuth" aria-label="关闭">×</button><span class="eyebrow">YOUR ACCOUNT</span><h2 id="authTitle">登录 / 注册</h2><p class="muted">登录后，每个账号在每个投票中只能投一票。</p><form id="authForm"><label>邮箱<input type="email" id="authEmail" required autocomplete="email" placeholder="you@example.com"></label><label>密码<input type="password" id="authPassword" required minlength="8" autocomplete="current-password" placeholder="至少 8 位"></label><button class="btn btn-primary btn-block" id="authSubmit" type="submit">登录</button></form><button class="text-btn switch-auth" id="switchAuth">没有账号？注册</button><p class="hint">注册后可能需要到邮箱完成验证，具体取决于 Supabase 的认证设置。</p><div id="authMessage" class="message"></div></div></div>
+<div class="toast hidden" id="toast" role="status"></div>
+<script src="app.js"></script>
+</body></html>
